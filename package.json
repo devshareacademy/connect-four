@@ -36,13 +36,13 @@
 		"yarn": "1.22.11"
 	},
 	"engines": {
-    "node": ">=16",
-    "yarn": ">=1.22.0",
-    "npm": ">=8"
-  },
+		"node": ">=16",
+		"yarn": ">=1.22.0",
+		"npm": ">=8"
+	},
 	"files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+		"dist"
+	],
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts"
 }

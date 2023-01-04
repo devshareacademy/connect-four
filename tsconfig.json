@@ -3,16 +3,16 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"typeRoots": [
-      "node_modules/@types"
-    ]
+			"node_modules/@types"
+		]
 	},
 	"include": [
 		"src/**/*.ts",
 		"tests/**/*.ts"
 	],
 	"ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	}
 }
