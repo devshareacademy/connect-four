@@ -5,8 +5,8 @@ import * as CF from '../src';
 
 const suite = uvu.suite('Core');
 
-suite('Should expose a test function', () => {
-  assert.type(CF.test, 'function');
+suite('Should expose the Connect Four class', () => {
+  assert.type(CF.ConnectFour, 'function');
 });
 
 suite.run();

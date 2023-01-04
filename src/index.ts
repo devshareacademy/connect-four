@@ -1,5 +1,3 @@
-function test() {
-  console.log('test');
-}
+import ConnectFour from './connect-four';
 
-export { test };
+export { ConnectFour };
