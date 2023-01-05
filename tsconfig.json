@@ -1,11 +1,10 @@
 {
 	"extends": "@devshareacademy/tsconfig/tsconfig.json",
 	"compilerOptions": {
+		"module": "commonjs",
 		"outDir": "dist",
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"declaration": true
+		"declaration": true,
+		"importHelpers": false
 	},
 	"include": [
 		"src/**/*.ts",
