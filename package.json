@@ -2,8 +2,13 @@
 	"name": "@devshareacademy/connect-four",
 	"version": "0.0.1",
 	"description": "A NPM package that contains the core game logic for the game Connect Four.",
+	"files": [
+		"dist"
+	],
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "tsc --version && tsc -p ./config/tsconfig.build.json",
+		"build": "tsc -p ./config/tsconfig.build.json",
 		"test": "uvu -r ts-node/register tests",
 		"lint": "eslint './src' './tests' --ext .ts,.tsx --config ./config/.eslintrc"
 	},
@@ -39,10 +44,5 @@
 		"node": ">=16",
 		"yarn": ">=1.22.0",
 		"npm": ">=8"
-	},
-	"files": [
-		"dist"
-	],
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts"
+	}
 }
