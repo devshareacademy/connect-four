@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "A NPM package that contains the core game logic for the game Connect Four.",
 	"scripts": {
-		"build": "tsc --version && tsc -p ./config/tsconfig.build.json",
+		"build": "tsc -p ./config/tsconfig.build.json",
 		"test": "uvu -r ts-node/register tests",
 		"lint": "eslint './src' './tests' --ext .ts,.tsx --config ./config/.eslintrc"
 	},
