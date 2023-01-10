@@ -105,6 +105,14 @@ function setupPlaceGamePieceTests(): void {
     connectFour = new ConnectFour();
   });
 
+  connectFourPlayersInputSuite('should return the coordinate of the cell where the game piece was placed', () => {
+    const makeMoveResponse = connectFour.makeMove(4);
+    assert.equal(makeMoveResponse, {
+      col: 4,
+      row: 5,
+    });
+  });
+
   connectFourPlayersInputSuite('should allow first player to place a game piece and update the game state', () => {
     connectFour.makeMove(0);
 

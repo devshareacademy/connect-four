@@ -42,7 +42,7 @@ export default class ConnectFour {
   /**
    * Allows the current player to make a move by providing the column they would like to drop their game piece into.
    */
-  public makeMove(col: number): void {
+  public makeMove(col: number): Coordinate {
     // check for validate board space
     if (col < 0 || col > NUMBER_OF_COLS) {
       throw new Error(ConnectFourError.INVALID_COLUMN);
@@ -74,7 +74,11 @@ export default class ConnectFour {
 
     // check if the game is finished
     this.#checkForGameEnd(row, col);
-    if (this.#isGameOver) return;
+    const coordinate: Coordinate = {
+      col,
+      row,
+    };
+    if (this.#isGameOver) return coordinate;
 
     // update the current players turn
     if (this.#playersTurn === Player.ONE) {
@@ -82,6 +86,7 @@ export default class ConnectFour {
     } else {
       this.#playersTurn = Player.ONE;
     }
+    return coordinate;
   }
 
   /**

@@ -39,7 +39,7 @@ At this time, the constructor of the `ConnectFour` class does not take any confi
 
 #### .makeMove(column)
 
-Allows the current player to drop a checker into one of the columns in the game board. This method will throw an error in the following scenarios:
+Allows the current player to drop a checker into one of the columns in the game board. This method will return the coordinate of where the checker was placed on the game board. This method will throw an error in the following scenarios:
 
 * A column index that is not within boundary of the game board, example `20`
 * The column is already full
@@ -50,6 +50,12 @@ Allows the current player to drop a checker into one of the columns in the game 
 | Name | Type | Description |
 |---|---|---|
 | column | number | The index of the column the player game piece should be added to. Valid values are `0 - 6` |
+
+##### Returns
+
+| Name | Type | Description |
+|---|---|---|
+| coordinate | object | The coordinate of where the checker was placed. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row and column. Example: `[{"row":0,"col":0}]`.
 
 #### .resetGame()
 
@@ -62,8 +68,8 @@ Allows the player to reset the game, and start a brand new game. Once this metho
 | board | A 2D array that represents the current board state.  | number[][] |
 | playersTurn | A string that represents the current players turn. Possible values are: `ONE` and `TWO`. | string |
 | isGameOver | A boolean flag that represents if the current game instance is finished. The game is considered finished when a player has won the game by getting a Connect Four, or when the game ends in a `DRAW` if no more spaces are left on the board. | boolean |
-| gameWinner | A string that represents the player that one the game. Possible values are `ONE` and `TWO`.  If the game is not over, or if the game ends in a `DRAW`, then this property will return `undefined`. | string \| undefined |
-| winningCells | An array of objects that represent the coordinates of the winning cells that make up the winning combination. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row  and column. Example: `[{"row":0,"col":0}]`  If the game is not over, or if the game ends in a `DRAW`, then this property will return an empty array. | {   col: number;   row: number; }[] |
+| gameWinner | A string that represents the player that one the game. Possible values are `ONE` and `TWO`. If the game is not over, or if the game ends in a `DRAW`, then this property will return `undefined`. | string \| undefined |
+| winningCells | An array of objects that represent the coordinates of the winning cells that make up the winning combination. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row and column. Example: `[{"row":0,"col":0}]`. If the game is not over, or if the game ends in a `DRAW`, then this property will return an empty array. | {   col: number;   row: number; }[] |
 
 ## Examples
 
