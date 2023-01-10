@@ -10,7 +10,8 @@
 	"scripts": {
 		"build": "tsc -p ./config/tsconfig.build.json",
 		"test": "uvu -r ts-node/register tests",
-		"lint": "eslint './src' './tests' --ext .ts,.tsx --config ./config/.eslintrc"
+		"lint": "eslint './src' './tests' --ext .ts,.tsx --config ./config/.eslintrc",
+		"publish:npm": "npm publish --registry https://registry.npmjs.org/ --access public --ignore-scripts"
 	},
 	"author": "scottwestover",
 	"license": "MIT",
