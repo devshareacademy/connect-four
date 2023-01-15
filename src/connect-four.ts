@@ -41,4 +41,18 @@ export default class ConnectFour {
   get gameWinner(): undefined | Player {
     return this.#gameWinner;
   }
+
+  /**
+   * Allows player to reset the game state, and start a brand new game.
+   */
+  public resetGame(): void {
+    // TODO
+  }
+
+  /**
+   * Allows the current player to make a move by providing the column they would like to drop their game piece into.
+   */
+  public makeMove(col: number): void {
+    // TODO
+  }
 }
