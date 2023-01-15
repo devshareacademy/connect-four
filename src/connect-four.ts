@@ -25,4 +25,20 @@ export default class ConnectFour {
   #gameWinner: undefined | Player;
 
   constructor() {}
+
+  get board(): CellRange[][] {
+    return JSON.parse(JSON.stringify(this.#board)) as CellRange[][];
+  }
+
+  get playersTurn(): Player {
+    return this.#playersTurn;
+  }
+
+  get isGameOver(): boolean {
+    return this.#isGameOver;
+  }
+
+  get gameWinner(): undefined | Player {
+    return this.#gameWinner;
+  }
 }
