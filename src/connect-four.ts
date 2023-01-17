@@ -99,7 +99,7 @@ export default class ConnectFour {
     }
 
     // check if the game is finished
-    // TODO
+    this.#checkForGameEnd(row, col);
 
     const coordinate: Coordinate = {
       col,
@@ -141,6 +141,25 @@ export default class ConnectFour {
         row.push(0);
       }
       this.#board.push(row);
+    }
+  }
+
+  /**
+   * Checks if the last played game piece resulted in a player winning the game by getting four in a row,
+   * either in a column, row, or diagonal. If after the last piece is placed and there are no remaining game
+   * spots left, the game ends in a draw and the game is considered over.
+   */
+  #checkForGameEnd(row: number, col: number): void {
+    // see if a player won based off of last piece that placed
+    // TODO
+    const didPlayerWin = false;
+
+    const anyOpenSpots = this.#board[0].some((cell) => {
+      return cell === 0;
+    });
+
+    if (!anyOpenSpots || didPlayerWin) {
+      this.#isGameOver = true;
     }
   }
 }
