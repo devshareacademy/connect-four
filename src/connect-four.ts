@@ -13,6 +13,12 @@ export type CellRange =
   | 1 // player one game piece
   | 2; // player two game piece
 
+export enum ConnectFourError {
+  INVALID_MOVE = 'Column is already filled, please provide a different column.',
+  INVALID_COLUMN = 'Invalid column specified. Please provide a valid column number.',
+  INVALID_MOVE_GAME_IS_OVER = 'Game has already ended, please reset the game.',
+}
+
 /**
  * Represents the game of Connect Four, where players attempt to get four checkers in a row -
  * horizontally, vertically, or diagonally. The first player to do so wins.
@@ -58,7 +64,34 @@ export default class ConnectFour {
    * Allows the current player to make a move by providing the column they would like to drop their game piece into.
    */
   public makeMove(col: number): void {
-    // TODO
+    // check for validate board space
+    if (col < 0 || col > NUMBER_OF_COLS) {
+      throw new Error(ConnectFourError.INVALID_COLUMN);
+    }
+
+    // validate that the game is not already done
+    if (this.#isGameOver) {
+      throw new Error(ConnectFourError.INVALID_MOVE_GAME_IS_OVER);
+    }
+
+    // validate that the space is not already taken
+    if (this.board[0][col] !== 0) {
+      throw new Error(ConnectFourError.INVALID_MOVE);
+    }
+
+    // update the state of the board to include the players selected space
+    let row = 0;
+    for (let i = NUMBER_OF_ROWS - 1; i >= 0; i -= 1) {
+      if (this.#board[i][col] === 0) {
+        if (this.#playersTurn === Player.ONE) {
+          this.#board[i][col] = 1;
+        } else {
+          this.#board[i][col] = 2;
+        }
+        row = i;
+        break;
+      }
+    }
   }
 
   /**
