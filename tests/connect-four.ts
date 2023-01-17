@@ -216,3 +216,4 @@ function setupPlaceGamePieceTests(): void {
 
 setupInitializationTests();
 setupResetGameTests();
+setupPlaceGamePieceTests();

@@ -19,6 +19,11 @@ export enum ConnectFourError {
   INVALID_MOVE_GAME_IS_OVER = 'Game has already ended, please reset the game.',
 }
 
+export type Coordinate = {
+  col: number;
+  row: number;
+};
+
 /**
  * Represents the game of Connect Four, where players attempt to get four checkers in a row -
  * horizontally, vertically, or diagonally. The first player to do so wins.
@@ -63,7 +68,7 @@ export default class ConnectFour {
   /**
    * Allows the current player to make a move by providing the column they would like to drop their game piece into.
    */
-  public makeMove(col: number): void {
+  public makeMove(col: number): Coordinate {
     // check for validate board space
     if (col < 0 || col > NUMBER_OF_COLS) {
       throw new Error(ConnectFourError.INVALID_COLUMN);
@@ -92,6 +97,23 @@ export default class ConnectFour {
         break;
       }
     }
+
+    // check if the game is finished
+    // TODO
+
+    const coordinate: Coordinate = {
+      col,
+      row,
+    };
+    if (this.#isGameOver) return coordinate;
+
+    // update the current players turn
+    if (this.#playersTurn === Player.ONE) {
+      this.#playersTurn = Player.TWO;
+    } else {
+      this.#playersTurn = Player.ONE;
+    }
+    return coordinate;
   }
 
   /**
