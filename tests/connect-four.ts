@@ -77,5 +77,142 @@ function setupResetGameTests(): void {
   connectFourResetGameSuite.run();
 }
 
+/* Connect Four - Players Place Game Pieces Tests */
+function setupPlaceGamePieceTests(): void {
+  const connectFourPlayersInputSuite = uvu.suite('Connect Four - Players Place Game Pieces');
+
+  connectFourPlayersInputSuite.before.each(() => {
+    connectFour = new ConnectFour();
+  });
+
+  connectFourPlayersInputSuite('should return the coordinate of the cell where the game piece was placed', () => {
+    const makeMoveResponse = connectFour.makeMove(4);
+    assert.equal(makeMoveResponse, {
+      col: 4,
+      row: 5,
+    });
+  });
+
+  connectFourPlayersInputSuite('should allow first player to place a game piece and update the game state', () => {
+    connectFour.makeMove(0);
+
+    const currentPlayersTurn = connectFour.playersTurn;
+    assert.type(currentPlayersTurn, 'string');
+    assert.equal(currentPlayersTurn, Player.TWO);
+
+    const isGameOver = connectFour.isGameOver;
+    assert.type(isGameOver, 'boolean');
+    assert.equal(isGameOver, false);
+
+    const winner = connectFour.gameWinner;
+    assert.type(winner, 'undefined');
+    assert.equal(winner, undefined);
+
+    const boardState = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0],
+    ];
+    assert.equal(boardState, connectFour.board);
+  });
+
+  connectFourPlayersInputSuite('should allow second player to place a game piece and update the game state', () => {
+    connectFour.makeMove(0);
+    connectFour.makeMove(0);
+
+    const currentPlayersTurn = connectFour.playersTurn;
+    assert.type(currentPlayersTurn, 'string');
+    assert.equal(currentPlayersTurn, Player.ONE);
+
+    const isGameOver = connectFour.isGameOver;
+    assert.type(isGameOver, 'boolean');
+    assert.equal(isGameOver, false);
+
+    const winner = connectFour.gameWinner;
+    assert.type(winner, 'undefined');
+    assert.equal(winner, undefined);
+
+    const boardState = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0],
+    ];
+    assert.equal(boardState, connectFour.board);
+  });
+
+  connectFourPlayersInputSuite(
+    'should throw an error if an invalid column is provided and not modify the game state',
+    () => {
+      assert.throws(() => connectFour.makeMove(-1), /Invalid column specified/);
+
+      const currentPlayersTurn = connectFour.playersTurn;
+      assert.type(currentPlayersTurn, 'string');
+      assert.equal(currentPlayersTurn, Player.ONE);
+
+      const isGameOver = connectFour.isGameOver;
+      assert.type(isGameOver, 'boolean');
+      assert.equal(isGameOver, false);
+
+      const winner = connectFour.gameWinner;
+      assert.type(winner, 'undefined');
+      assert.equal(winner, undefined);
+
+      const boardState = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+      ];
+      assert.equal(boardState, connectFour.board);
+    },
+  );
+
+  connectFourPlayersInputSuite(
+    'should throw an error if a column is already filled and not modify the game state',
+    () => {
+      connectFour.makeMove(0);
+      connectFour.makeMove(0);
+      connectFour.makeMove(0);
+      connectFour.makeMove(0);
+      connectFour.makeMove(0);
+      connectFour.makeMove(0);
+
+      assert.throws(() => connectFour.makeMove(0), /Column is already filled/);
+
+      const currentPlayersTurn = connectFour.playersTurn;
+      assert.type(currentPlayersTurn, 'string');
+      assert.equal(currentPlayersTurn, Player.ONE);
+
+      const isGameOver = connectFour.isGameOver;
+      assert.type(isGameOver, 'boolean');
+      assert.equal(isGameOver, false);
+
+      const winner = connectFour.gameWinner;
+      assert.type(winner, 'undefined');
+      assert.equal(winner, undefined);
+
+      const boardState = [
+        [2, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0],
+        [2, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0],
+        [2, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0],
+      ];
+      assert.equal(boardState, connectFour.board);
+    },
+  );
+
+  connectFourPlayersInputSuite.run();
+}
+
 setupInitializationTests();
 setupResetGameTests();
