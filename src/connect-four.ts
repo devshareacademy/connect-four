@@ -51,7 +51,7 @@ export default class ConnectFour {
    * Allows player to reset the game state, and start a brand new game.
    */
   public resetGame(): void {
-    this.#initializeGrid();
+    this.#initializeGame();
   }
 
   /**
