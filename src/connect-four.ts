@@ -151,8 +151,11 @@ export default class ConnectFour {
    */
   #checkForGameEnd(row: number, col: number): void {
     // see if a player won based off of last piece that placed
-    // TODO
-    const didPlayerWin = false;
+    const didPlayerWin =
+      this.#isHorizontalWin(row, 0, 0) ||
+      this.#isVerticalWin(row, col) ||
+      this.#isForwardSlashWin(row, col, 0, 0) ||
+      this.#isBackwardSlashWin(row, col, 0, 0);
 
     const anyOpenSpots = this.#board[0].some((cell) => {
       return cell === 0;
@@ -161,5 +164,63 @@ export default class ConnectFour {
     if (!anyOpenSpots || didPlayerWin) {
       this.#isGameOver = true;
     }
+  }
+
+  /**
+   * Checks to see if the last played game piece resulted in four in a row in the provided row.
+   * Checks the possible winning combinations for the given row based on where the game piece was played.
+   *
+   * Example:
+   * If the piece was played in column 2, we would need to check the following combinations for a win
+   * since column 2 is included in these combinations for a row.
+   *  - [0,1,2,3]
+   *  - [1,2,3,4]
+   *  - [2,3,4,5]
+   */
+  #isHorizontalWin(lastPiecePlayedRow: number, minCol: number, maxCol: number): boolean {
+    return false;
+  }
+
+  /**
+   * Checks to see if the last played game piece resulted in four in a row in the provided column.
+   * When we check for a win in column, we only need to check the current cell and the three cells
+   * below that one since there will be no game pieces above the current piece. This means there
+   * could only be one possible winning combination for the column.
+   *
+   * We also only need to check for a win if this is at least the fourth game piece added to this column,
+   * since four pieces are required for a win.
+   */
+  #isVerticalWin(row: number, col: number): boolean {
+    return false;
+  }
+
+  /**
+   * Checks to see if the last played game piece resulted in four in a row in a forward diagonal.
+   * Checks the possible winning combinations for the given row and column based on where the game piece was played.
+   *
+   * Example:
+   * If the piece was played in column 3 row 3, we would need to check the following combinations for a win
+   * since column 3 row 3 is included in each combination:
+   *  - [{col: 1, row: 5}, {col: 2, row: 4}, {col: 3, row: 3}, {col: 4, row: 2}]
+   *  - [{col: 2, row: 4}, {col: 3, row: 3}, {col: 4, row: 2}, {col: 5, row: 1}]
+   *  - [{col: 3, row: 4}, {col: 4, row: 2}, {col: 5, row: 1}, {col: 6, row: 0}]
+   */
+  #isForwardSlashWin(row: number, col: number, minCol: number, maxRow: number): boolean {
+    return false;
+  }
+
+  /**
+   * Checks to see if the last played game piece resulted in four in a row in a backward diagonal.
+   * Checks the possible winning combinations for the given row and column based on where the game piece was played.
+   *
+   * Example:
+   * If the piece was played in column 3 row 3, we would need to check the following combinations for a win
+   * since column 3 row 3 is included in each combination:
+   *  - [{col: 5, row: 5}, {col: 4, row: 4}, {col: 3, row: 3}, {col: 2, row: 2}]
+   *  - [{col: 4, row: 4}, {col: 3, row: 3}, {col: 2, row: 2}, {col: 1, row: 1}]
+   *  - [{col: 3, row: 3}, {col: 2, row: 2}, {col: 1, row: 1}, {col: 0, row: 0}]
+   */
+  #isBackwardSlashWin(row: number, col: number, maxCol: number, maxRow: number): boolean {
+    return false;
   }
 }
