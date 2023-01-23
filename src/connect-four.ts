@@ -191,7 +191,15 @@ export default class ConnectFour {
    * since four pieces are required for a win.
    */
   #isVerticalWin(row: number, col: number): boolean {
-    return false;
+    if (row > 2) return false;
+    const cells = [
+      this.#board[row][col],
+      this.#board[row + 1][col],
+      this.#board[row + 2][col],
+      this.#board[row + 3][col],
+    ];
+    const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
+    return isWin;
   }
 
   /**
@@ -221,6 +229,25 @@ export default class ConnectFour {
    *  - [{col: 3, row: 3}, {col: 2, row: 2}, {col: 1, row: 1}, {col: 0, row: 0}]
    */
   #isBackwardSlashWin(row: number, col: number, maxCol: number, maxRow: number): boolean {
+    return false;
+  }
+
+  /**
+   * Checks to see if all cells in the provided array match the provided value. If so,
+   * update the internal game state to have the appropriate winner value.
+   */
+  #doAllCellsMatch(cells: number[], value: number): boolean {
+    const isWin = cells.every((cell) => {
+      return cell === value && cell !== 0;
+    });
+    if (isWin) {
+      if (value === 1) {
+        this.#gameWinner = Player.ONE;
+      } else {
+        this.#gameWinner = Player.TWO;
+      }
+      return true;
+    }
     return false;
   }
 }
