@@ -1,3 +1,5 @@
+import { min, max } from './utils';
+
 const NUMBER_OF_ROWS = 6;
 const NUMBER_OF_COLS = 7;
 
@@ -150,9 +152,12 @@ export default class ConnectFour {
    * spots left, the game ends in a draw and the game is considered over.
    */
   #checkForGameEnd(row: number, col: number): void {
+    const minCol = min(col);
+    const maxCol = max(col, NUMBER_OF_COLS - 1);
+
     // see if a player won based off of last piece that placed
     const didPlayerWin =
-      this.#isHorizontalWin(row, 0, 0) ||
+      this.#isHorizontalWin(row, minCol, maxCol) ||
       this.#isVerticalWin(row, col) ||
       this.#isForwardSlashWin(row, col, 0, 0) ||
       this.#isBackwardSlashWin(row, col, 0, 0);
@@ -178,6 +183,19 @@ export default class ConnectFour {
    *  - [2,3,4,5]
    */
   #isHorizontalWin(lastPiecePlayedRow: number, minCol: number, maxCol: number): boolean {
+    const row = lastPiecePlayedRow;
+    for (let col = minCol; col <= maxCol; col++) {
+      const cells = [
+        this.#board[row][col],
+        this.#board[row][col + 1],
+        this.#board[row][col + 2],
+        this.#board[row][col + 3],
+      ];
+      const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
+      if (isWin) {
+        return true;
+      }
+    }
     return false;
   }
 
