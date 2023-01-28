@@ -154,13 +154,14 @@ export default class ConnectFour {
   #checkForGameEnd(row: number, col: number): void {
     const minCol = min(col);
     const maxCol = max(col, NUMBER_OF_COLS - 1);
+    const maxRow = max(row, NUMBER_OF_ROWS - 1);
 
     // see if a player won based off of last piece that placed
     const didPlayerWin =
       this.#isHorizontalWin(row, minCol, maxCol) ||
       this.#isVerticalWin(row, col) ||
-      this.#isForwardSlashWin(row, col, 0, 0) ||
-      this.#isBackwardSlashWin(row, col, 0, 0);
+      this.#isForwardSlashWin(row, col, minCol, maxRow) ||
+      this.#isBackwardSlashWin(row, col, maxCol, maxRow);
 
     const anyOpenSpots = this.#board[0].some((cell) => {
       return cell === 0;
@@ -232,6 +233,25 @@ export default class ConnectFour {
    *  - [{col: 3, row: 4}, {col: 4, row: 2}, {col: 5, row: 1}, {col: 6, row: 0}]
    */
   #isForwardSlashWin(row: number, col: number, minCol: number, maxRow: number): boolean {
+    //  need to determine a new max and min based on the diagonal
+    let maxDiagonalSpaces = Math.min(col - minCol, maxRow - row);
+    while (maxDiagonalSpaces >= 0) {
+      const tempCol = col - maxDiagonalSpaces;
+      const tempRow = row + maxDiagonalSpaces;
+      if (tempRow > 2 && tempCol <= 3) {
+        const cells = [
+          this.#board[tempRow][tempCol],
+          this.#board[tempRow - 1][tempCol + 1],
+          this.#board[tempRow - 2][tempCol + 2],
+          this.#board[tempRow - 3][tempCol + 3],
+        ];
+        const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
+        if (isWin) {
+          return true;
+        }
+      }
+      maxDiagonalSpaces--;
+    }
     return false;
   }
 
@@ -247,6 +267,26 @@ export default class ConnectFour {
    *  - [{col: 3, row: 3}, {col: 2, row: 2}, {col: 1, row: 1}, {col: 0, row: 0}]
    */
   #isBackwardSlashWin(row: number, col: number, maxCol: number, maxRow: number): boolean {
+    //  need to determine a new max and min based on the diagonal
+    let maxDiagonalSpaces = Math.min(maxCol - col, maxRow - row);
+    while (maxDiagonalSpaces >= 0) {
+      const tempCol = col + maxDiagonalSpaces;
+      const tempRow = row + maxDiagonalSpaces;
+
+      if (tempRow > 2 && tempCol >= 3) {
+        const cells = [
+          this.#board[tempRow][tempCol],
+          this.#board[tempRow - 1][tempCol - 1],
+          this.#board[tempRow - 2][tempCol - 2],
+          this.#board[tempRow - 3][tempCol - 3],
+        ];
+        const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
+        if (isWin) {
+          return true;
+        }
+      }
+      maxDiagonalSpaces--;
+    }
     return false;
   }
 
