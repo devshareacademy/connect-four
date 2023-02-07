@@ -1,7 +1,7 @@
 import * as uvu from 'uvu';
 import * as assert from 'uvu/assert';
 import { ConnectFour } from '../src';
-import { CellRange, Coordinate, Player } from '../src/connect-four';
+import { CellRange, Coordinate, Player } from '../src/types';
 
 type Data = {
   moves: number[];

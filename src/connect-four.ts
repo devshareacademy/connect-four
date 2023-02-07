@@ -1,30 +1,8 @@
+import { ConnectFourError, Player, CellRange, Coordinate } from './types';
 import { min, max } from './utils';
 
 const NUMBER_OF_ROWS = 6;
 const NUMBER_OF_COLS = 7;
-
-/* Represents the two player identifiers for the Connect Four game. */
-export enum Player {
-  ONE = 'ONE',
-  TWO = 'TWO',
-}
-
-/* Represents the possible values of a cell in the Connect Four board. */
-export type CellRange =
-  | 0 // empty cell
-  | 1 // player one game piece
-  | 2; // player two game piece
-
-export enum ConnectFourError {
-  INVALID_MOVE = 'Column is already filled, please provide a different column.',
-  INVALID_COLUMN = 'Invalid column specified. Please provide a valid column number.',
-  INVALID_MOVE_GAME_IS_OVER = 'Game has already ended, please reset the game.',
-}
-
-export type Coordinate = {
-  col: number;
-  row: number;
-};
 
 /**
  * Represents the game of Connect Four, where players attempt to get four checkers in a row -
@@ -39,6 +17,8 @@ export default class ConnectFour {
   #isGameOver = false;
   /* used for tracking if a player wins the game */
   #gameWinner: undefined | Player;
+  /* used for tracking what cells make up a winning Connect Four combination */
+  #winningCells: Coordinate[] = [];
 
   constructor() {
     this.#initializeGame();
@@ -58,6 +38,10 @@ export default class ConnectFour {
 
   get gameWinner(): undefined | Player {
     return this.#gameWinner;
+  }
+
+  get winningCells(): Coordinate[] {
+    return JSON.parse(JSON.stringify(this.#winningCells)) as Coordinate[];
   }
 
   /**
@@ -127,6 +111,7 @@ export default class ConnectFour {
     this.#isGameOver = false;
     this.#gameWinner = undefined;
     this.#playersTurn = Player.ONE;
+    this.#winningCells = [];
   }
 
   /**
@@ -194,6 +179,12 @@ export default class ConnectFour {
       ];
       const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
       if (isWin) {
+        this.#winningCells = [
+          { col, row },
+          { col: col + 1, row },
+          { col: col + 2, row },
+          { col: col + 3, row },
+        ];
         return true;
       }
     }
@@ -218,6 +209,14 @@ export default class ConnectFour {
       this.#board[row + 3][col],
     ];
     const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
+    if (isWin) {
+      this.#winningCells = [
+        { col, row },
+        { col, row: row + 1 },
+        { col, row: row + 2 },
+        { col, row: row + 3 },
+      ];
+    }
     return isWin;
   }
 
@@ -247,6 +246,12 @@ export default class ConnectFour {
         ];
         const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
         if (isWin) {
+          this.#winningCells = [
+            { col: tempCol, row: tempRow },
+            { col: tempCol + 1, row: tempRow - 1 },
+            { col: tempCol + 2, row: tempRow - 2 },
+            { col: tempCol + 3, row: tempRow - 3 },
+          ];
           return true;
         }
       }
@@ -282,6 +287,12 @@ export default class ConnectFour {
         ];
         const isWin = this.#doAllCellsMatch(cells, this.#board[row][col]);
         if (isWin) {
+          this.#winningCells = [
+            { col: tempCol, row: tempRow },
+            { col: tempCol - 1, row: tempRow - 1 },
+            { col: tempCol - 2, row: tempRow - 2 },
+            { col: tempCol - 3, row: tempRow - 3 },
+          ];
           return true;
         }
       }
