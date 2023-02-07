@@ -9,10 +9,15 @@ const NUMBER_OF_COLS = 7;
  * horizontally, vertically, or diagonally. The first player to do so wins.
  */
 export default class ConnectFour {
+  /* an internal representation of the Connect Four Board */
   #board: CellRange[][] = [];
+  /* used for tracking for which player will place the next game piece */
   #playersTurn: Player = Player.ONE;
+  /* used for tracking for if the game is over, either from the board being filled or a player getting a Connect Four */
   #isGameOver = false;
+  /* used for tracking if a player wins the game */
   #gameWinner: undefined | Player;
+  /* used for tracking what cells make up a winning Connect Four combination */
   #winningCells: Coordinate[] = [];
 
   constructor() {
@@ -36,7 +41,14 @@ export default class ConnectFour {
   }
 
   get winningCells(): Coordinate[] {
-    return this.#winningCells;
+    return JSON.parse(JSON.stringify(this.#winningCells)) as Coordinate[];
+  }
+
+  /**
+   * Allows player to reset the game state, and start a brand new game.
+   */
+  public resetGame(): void {
+    this.#initializeGame();
   }
 
   /**
@@ -74,6 +86,7 @@ export default class ConnectFour {
 
     // check if the game is finished
     this.#checkForGameEnd(row, col);
+
     const coordinate: Coordinate = {
       col,
       row,
@@ -87,13 +100,6 @@ export default class ConnectFour {
       this.#playersTurn = Player.ONE;
     }
     return coordinate;
-  }
-
-  /**
-   * Allows player to reset the game state, and start a brand new game.
-   */
-  public resetGame(): void {
-    this.#initializeGame();
   }
 
   /**
@@ -131,11 +137,11 @@ export default class ConnectFour {
    * spots left, the game ends in a draw and the game is considered over.
    */
   #checkForGameEnd(row: number, col: number): void {
-    // see if a player won based off of last piece that placed
     const minCol = min(col);
     const maxCol = max(col, NUMBER_OF_COLS - 1);
     const maxRow = max(row, NUMBER_OF_ROWS - 1);
 
+    // see if a player won based off of last piece that placed
     const didPlayerWin =
       this.#isHorizontalWin(row, minCol, maxCol) ||
       this.#isVerticalWin(row, col) ||
