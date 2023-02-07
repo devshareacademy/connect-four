@@ -1,7 +1,8 @@
 import * as uvu from 'uvu';
 import * as assert from 'uvu/assert';
-import { ConnectFour } from '../src';
-import { CellRange, Coordinate, Player } from '../src/types';
+
+import ConnectFour from '../src/connect-four';
+import { Player, Coordinate, CellRange } from '../src/types';
 
 type Data = {
   moves: number[];
@@ -44,6 +45,12 @@ function setupInitializationTests(): void {
     assert.equal(currentPlayersTurn, Player.ONE);
   });
 
+  connectFourInitializationSuite('should initialize the game and there should be no winning cell combinations', () => {
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, []);
+  });
+
   connectFourInitializationSuite.run();
 }
 
@@ -81,6 +88,12 @@ function setupResetGameTests(): void {
     assert.equal(currentPlayersTurn, Player.ONE);
   });
 
+  connectFourResetGameSuite('should reset the game state and there should be no winning cell combinations', () => {
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, []);
+  });
+
   connectFourResetGameSuite.run();
 }
 
@@ -115,6 +128,10 @@ function setupPlaceGamePieceTests(): void {
     assert.type(winner, 'undefined');
     assert.equal(winner, undefined);
 
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, []);
+
     const boardState = [
       [0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0],
@@ -141,6 +158,10 @@ function setupPlaceGamePieceTests(): void {
     const winner = connectFour.gameWinner;
     assert.type(winner, 'undefined');
     assert.equal(winner, undefined);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, []);
 
     const boardState = [
       [0, 0, 0, 0, 0, 0, 0],
@@ -169,6 +190,10 @@ function setupPlaceGamePieceTests(): void {
       const winner = connectFour.gameWinner;
       assert.type(winner, 'undefined');
       assert.equal(winner, undefined);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, []);
 
       const boardState = [
         [0, 0, 0, 0, 0, 0, 0],
@@ -205,6 +230,10 @@ function setupPlaceGamePieceTests(): void {
       const winner = connectFour.gameWinner;
       assert.type(winner, 'undefined');
       assert.equal(winner, undefined);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, []);
 
       const boardState = [
         [2, 0, 0, 0, 0, 0, 0],
@@ -272,6 +301,10 @@ function setupGameOverTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -318,6 +351,10 @@ function setupGameOverTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -378,6 +415,12 @@ function setupGameOverTests(): void {
       const winner = connectFour.gameWinner;
       assert.type(winner, 'undefined');
       assert.equal(winner, undefined);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, []);
+
+      // TODO - validate the board state
     },
   );
 
@@ -428,6 +471,10 @@ function setupGameOverTests(): void {
     assert.equal(winner, data.winner);
 
     assert.equal(data.boardState, connectFour.board);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, data.winningCells);
   });
 
   connectFourGameFinishedSuite.run();
@@ -484,6 +531,10 @@ function setupVerticalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -530,6 +581,10 @@ function setupVerticalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -576,6 +631,10 @@ function setupVerticalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -631,6 +690,10 @@ function setupHorizontalWinTests(): void {
     assert.equal(winner, data.winner);
 
     assert.equal(data.boardState, connectFour.board);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, data.winningCells);
   });
 
   connectFourGameHorizontalWinsSuite(
@@ -676,6 +739,10 @@ function setupHorizontalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -722,6 +789,10 @@ function setupHorizontalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -767,6 +838,10 @@ function setupHorizontalWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -824,6 +899,10 @@ function setupForwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -870,6 +949,10 @@ function setupForwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -914,6 +997,10 @@ function setupForwardSlashWinTests(): void {
     assert.equal(winner, data.winner);
 
     assert.equal(data.boardState, connectFour.board);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, data.winningCells);
   });
 
   connectFourGameForwardSlashWinSuite('should allow player to win with a forward slash in the top right corner', () => {
@@ -957,6 +1044,10 @@ function setupForwardSlashWinTests(): void {
     assert.equal(winner, data.winner);
 
     assert.equal(data.boardState, connectFour.board);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, data.winningCells);
   });
 
   connectFourGameForwardSlashWinSuite(
@@ -1002,6 +1093,10 @@ function setupForwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -1059,6 +1154,10 @@ function setupBackwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -1105,6 +1204,10 @@ function setupBackwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -1149,6 +1252,10 @@ function setupBackwardSlashWinTests(): void {
     assert.equal(winner, data.winner);
 
     assert.equal(data.boardState, connectFour.board);
+
+    const winningCells = connectFour.winningCells;
+    assert.type(winningCells, 'object');
+    assert.equal(winningCells, data.winningCells);
   });
 
   connectFourGameBackwardSlashWinSuite(
@@ -1194,6 +1301,10 @@ function setupBackwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
@@ -1240,6 +1351,10 @@ function setupBackwardSlashWinTests(): void {
       assert.equal(winner, data.winner);
 
       assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
     },
   );
 
