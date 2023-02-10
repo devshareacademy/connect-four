@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "tsc -p ./config/tsconfig.build.json",
 		"test": "uvu -r ts-node/register tests",
-		"lint": "eslint './src' './tests' --ext .ts,.tsx --config ./config/.eslintrc"
+		"lint": "eslint \"./src\" \"./tests\" --ext .ts,.tsx --config ./config/.eslintrc"
 	},
 	"author": "scottwestover",
 	"license": "MIT",
