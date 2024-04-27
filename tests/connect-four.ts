@@ -1,12 +1,12 @@
 import * as uvu from 'uvu';
 import * as assert from 'uvu/assert';
 
-import ConnectFour from '../src/connect-four';
-import { Player, Coordinate, CellRange } from '../src/types';
+import { ConnectFour } from '../src/connect-four';
+import { Player, Coordinate, CellRange, PLAYER } from '../src/data';
 
 type Data = {
   moves: number[];
-  boardState: CellRange[][];
+  boardState: CellRange[];
   winner: Player;
   winningCells: Coordinate[];
 };
@@ -23,7 +23,7 @@ function setupInitializationTests(): void {
 
   connectFourInitializationSuite('should initialize the game state with an empty board', () => {
     // check that the board is initialized with empty values
-    const isBoardEmpty = connectFour.board.every((row) => row.every((cell) => cell === 0));
+    const isBoardEmpty = connectFour.board.every((cell) => cell === 0);
     assert.equal(isBoardEmpty, true);
   });
 
@@ -42,7 +42,7 @@ function setupInitializationTests(): void {
   connectFourInitializationSuite('should initialize the game and wait for the first players input', () => {
     const currentPlayersTurn = connectFour.playersTurn;
     assert.type(currentPlayersTurn, 'string');
-    assert.equal(currentPlayersTurn, Player.ONE);
+    assert.equal(currentPlayersTurn, PLAYER.ONE);
   });
 
   connectFourInitializationSuite('should initialize the game and there should be no winning cell combinations', () => {
@@ -66,7 +66,7 @@ function setupResetGameTests(): void {
 
   connectFourResetGameSuite('should reset the game state with an empty board', () => {
     // check that the board is initialized with empty values
-    const isBoardEmpty = connectFour.board.every((row) => row.every((cell) => cell === 0));
+    const isBoardEmpty = connectFour.board.every((cell) => cell === 0);
     assert.equal(isBoardEmpty, true);
   });
 
@@ -85,7 +85,7 @@ function setupResetGameTests(): void {
   connectFourResetGameSuite('should reset the game state and wait for the first players input', () => {
     const currentPlayersTurn = connectFour.playersTurn;
     assert.type(currentPlayersTurn, 'string');
-    assert.equal(currentPlayersTurn, Player.ONE);
+    assert.equal(currentPlayersTurn, PLAYER.ONE);
   });
 
   connectFourResetGameSuite('should reset the game state and there should be no winning cell combinations', () => {
@@ -118,7 +118,7 @@ function setupPlaceGamePieceTests(): void {
 
     const currentPlayersTurn = connectFour.playersTurn;
     assert.type(currentPlayersTurn, 'string');
-    assert.equal(currentPlayersTurn, Player.TWO);
+    assert.equal(currentPlayersTurn, PLAYER.TWO);
 
     const isGameOver = connectFour.isGameOver;
     assert.type(isGameOver, 'boolean');
@@ -132,13 +132,9 @@ function setupPlaceGamePieceTests(): void {
     assert.type(winningCells, 'object');
     assert.equal(winningCells, []);
 
-    const boardState = [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0, 0, 0],
+    const boardState: CellRange[] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+      0, 0, 0, 0,
     ];
     assert.equal(boardState, connectFour.board);
   });
@@ -149,7 +145,7 @@ function setupPlaceGamePieceTests(): void {
 
     const currentPlayersTurn = connectFour.playersTurn;
     assert.type(currentPlayersTurn, 'string');
-    assert.equal(currentPlayersTurn, Player.ONE);
+    assert.equal(currentPlayersTurn, PLAYER.ONE);
 
     const isGameOver = connectFour.isGameOver;
     assert.type(isGameOver, 'boolean');
@@ -163,13 +159,9 @@ function setupPlaceGamePieceTests(): void {
     assert.type(winningCells, 'object');
     assert.equal(winningCells, []);
 
-    const boardState = [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [2, 0, 0, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0, 0, 0],
+    const boardState: CellRange[] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+      0, 0, 0, 0,
     ];
     assert.equal(boardState, connectFour.board);
   });
@@ -181,7 +173,7 @@ function setupPlaceGamePieceTests(): void {
 
       const currentPlayersTurn = connectFour.playersTurn;
       assert.type(currentPlayersTurn, 'string');
-      assert.equal(currentPlayersTurn, Player.ONE);
+      assert.equal(currentPlayersTurn, PLAYER.ONE);
 
       const isGameOver = connectFour.isGameOver;
       assert.type(isGameOver, 'boolean');
@@ -195,13 +187,9 @@ function setupPlaceGamePieceTests(): void {
       assert.type(winningCells, 'object');
       assert.equal(winningCells, []);
 
-      const boardState = [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
+      const boardState: CellRange[] = [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
       ];
       assert.equal(boardState, connectFour.board);
     },
@@ -221,7 +209,7 @@ function setupPlaceGamePieceTests(): void {
 
       const currentPlayersTurn = connectFour.playersTurn;
       assert.type(currentPlayersTurn, 'string');
-      assert.equal(currentPlayersTurn, Player.ONE);
+      assert.equal(currentPlayersTurn, PLAYER.ONE);
 
       const isGameOver = connectFour.isGameOver;
       assert.type(isGameOver, 'boolean');
@@ -235,13 +223,9 @@ function setupPlaceGamePieceTests(): void {
       assert.type(winningCells, 'object');
       assert.equal(winningCells, []);
 
-      const boardState = [
-        [2, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0],
-        [2, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0],
-        [2, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0],
+      const boardState: CellRange[] = [
+        2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0,
       ];
       assert.equal(boardState, connectFour.board);
     },
@@ -272,14 +256,10 @@ function setupGameOverTests(): void {
       const data: Data = {
         moves: [2, 1, 2, 1, 2, 1, 2],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 1, 0, 0, 0, 0],
-          [0, 2, 1, 0, 0, 0, 0],
-          [0, 2, 1, 0, 0, 0, 0],
-          [0, 2, 1, 0, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2,
+          1, 0, 0, 0, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 2, row: 2 },
           { col: 2, row: 3 },
@@ -322,14 +302,10 @@ function setupGameOverTests(): void {
       const data: Data = {
         moves: [2, 1, 2, 1, 2, 1, 3, 1],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 2, 0, 0, 0, 0, 0],
-          [0, 2, 1, 0, 0, 0, 0],
-          [0, 2, 1, 0, 0, 0, 0],
-          [0, 2, 1, 1, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2,
+          1, 1, 0, 0, 0,
         ],
-        winner: Player.TWO,
+        winner: PLAYER.TWO,
         winningCells: [
           { col: 1, row: 2 },
           { col: 1, row: 3 },
@@ -436,14 +412,10 @@ function setupGameOverTests(): void {
     const data: Data = {
       moves: [2, 1, 2, 1, 2, 1, 2],
       boardState: [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0, 0],
-        [0, 2, 1, 0, 0, 0, 0],
-        [0, 2, 1, 0, 0, 0, 0],
-        [0, 2, 1, 0, 0, 0, 0],
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2,
+        1, 0, 0, 0, 0,
       ],
-      winner: Player.ONE,
+      winner: PLAYER.ONE,
       winningCells: [
         { col: 2, row: 2 },
         { col: 2, row: 3 },
@@ -460,7 +432,7 @@ function setupGameOverTests(): void {
 
     const currentPlayersTurn = connectFour.playersTurn;
     assert.type(currentPlayersTurn, 'string');
-    assert.equal(currentPlayersTurn, Player.ONE);
+    assert.equal(currentPlayersTurn, PLAYER.ONE);
 
     const isGameOver = connectFour.isGameOver;
     assert.type(isGameOver, 'boolean');
@@ -502,14 +474,10 @@ function setupVerticalWinTests(): void {
       const data: Data = {
         moves: [0, 1, 0, 1, 1, 0, 2, 0, 2, 0, 3, 0],
         boardState: [
-          [2, 0, 0, 0, 0, 0, 0],
-          [2, 0, 0, 0, 0, 0, 0],
-          [2, 0, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [1, 2, 1, 0, 0, 0, 0],
-          [1, 2, 1, 1, 0, 0, 0],
+          2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 1, 2,
+          1, 1, 0, 0, 0,
         ],
-        winner: Player.TWO,
+        winner: PLAYER.TWO,
         winningCells: [
           { col: 0, row: 0 },
           { col: 0, row: 1 },
@@ -552,14 +520,10 @@ function setupVerticalWinTests(): void {
       const data: Data = {
         moves: [0, 1, 2, 0, 1, 0, 1, 0, 1, 0],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [2, 0, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [1, 2, 1, 0, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 2,
+          1, 0, 0, 0, 0,
         ],
-        winner: Player.TWO,
+        winner: PLAYER.TWO,
         winningCells: [
           { col: 0, row: 1 },
           { col: 0, row: 2 },
@@ -602,14 +566,10 @@ function setupVerticalWinTests(): void {
       const data: Data = {
         moves: [0, 1, 0, 1, 0, 1, 0],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [1, 0, 0, 0, 0, 0, 0],
-          [1, 2, 0, 0, 0, 0, 0],
-          [1, 2, 0, 0, 0, 0, 0],
-          [1, 2, 0, 0, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 1, 2,
+          0, 0, 0, 0, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 0, row: 2 },
           { col: 0, row: 3 },
@@ -661,14 +621,10 @@ function setupHorizontalWinTests(): void {
     const data: Data = {
       moves: [0, 0, 1, 1, 2, 2, 3],
       boardState: [
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [2, 2, 2, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0],
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 1, 1,
+        1, 1, 0, 0, 0,
       ],
-      winner: Player.ONE,
+      winner: PLAYER.ONE,
       winningCells: [
         { col: 0, row: 5 },
         { col: 1, row: 5 },
@@ -710,14 +666,10 @@ function setupHorizontalWinTests(): void {
       const data: Data = {
         moves: [0, 0, 2, 2, 3, 3, 1],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [2, 0, 2, 2, 0, 0, 0],
-          [1, 1, 1, 1, 0, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 1, 1,
+          1, 1, 0, 0, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 0, row: 5 },
           { col: 1, row: 5 },
@@ -760,14 +712,10 @@ function setupHorizontalWinTests(): void {
       const data: Data = {
         moves: [6, 6, 4, 4, 3, 3, 5],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 2, 2, 0, 2],
-          [0, 0, 0, 1, 1, 1, 1],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0,
+          0, 1, 1, 1, 1,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 3, row: 5 },
           { col: 4, row: 5 },
@@ -810,14 +758,10 @@ function setupHorizontalWinTests(): void {
       const data: Data = {
         moves: [2, 2, 4, 4, 5, 5, 3],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 2, 0, 2, 2, 0],
-          [0, 0, 1, 1, 1, 1, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0,
+          1, 1, 1, 1, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 2, row: 5 },
           { col: 3, row: 5 },
@@ -870,14 +814,10 @@ function setupForwardSlashWinTests(): void {
       const data: Data = {
         moves: [0, 1, 2, 3, 1, 2, 3, 3, 2, 4, 3],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 1, 0, 0, 0],
-          [0, 0, 1, 2, 0, 0, 0],
-          [0, 1, 2, 1, 0, 0, 0],
-          [1, 2, 1, 2, 2, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 1, 2,
+          1, 2, 2, 0, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 0, row: 5 },
           { col: 1, row: 4 },
@@ -920,14 +860,10 @@ function setupForwardSlashWinTests(): void {
       const data: Data = {
         moves: [3, 4, 4, 5, 5, 6, 6, 2, 5, 6, 6],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 1],
-          [0, 0, 0, 0, 0, 1, 2],
-          [0, 0, 0, 0, 1, 1, 1],
-          [0, 0, 2, 1, 2, 2, 2],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+          2, 1, 2, 2, 2,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 3, row: 5 },
           { col: 4, row: 4 },
@@ -968,14 +904,10 @@ function setupForwardSlashWinTests(): void {
     const data: Data = {
       moves: [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 1, 2, 3, 4, 2, 3, 3],
       boardState: [
-        [0, 0, 0, 1, 0, 0, 0],
-        [0, 0, 1, 2, 0, 0, 0],
-        [0, 1, 2, 1, 0, 0, 0],
-        [1, 2, 1, 2, 0, 0, 0],
-        [1, 2, 1, 2, 0, 0, 0],
-        [1, 2, 1, 2, 2, 0, 0],
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 1, 2,
+        1, 2, 2, 0, 0,
       ],
-      winner: Player.ONE,
+      winner: PLAYER.ONE,
       winningCells: [
         { col: 0, row: 3 },
         { col: 1, row: 2 },
@@ -1015,14 +947,10 @@ function setupForwardSlashWinTests(): void {
     const data: Data = {
       moves: [3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6, 4, 5, 6, 2, 5, 6, 6],
       boardState: [
-        [0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 1, 2],
-        [0, 0, 0, 0, 1, 2, 1],
-        [0, 0, 0, 1, 2, 1, 2],
-        [0, 0, 0, 1, 2, 1, 2],
-        [0, 0, 2, 1, 2, 1, 2],
+        0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 1, 2, 1, 2, 0, 0, 0, 1, 2, 1, 2, 0, 0,
+        2, 1, 2, 1, 2,
       ],
-      winner: Player.ONE,
+      winner: PLAYER.ONE,
       winningCells: [
         { col: 3, row: 3 },
         { col: 4, row: 2 },
@@ -1064,14 +992,10 @@ function setupForwardSlashWinTests(): void {
       const data: Data = {
         moves: [3, 4, 5, 6, 4, 5, 6, 2, 5, 6, 6],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 1],
-          [0, 0, 0, 0, 0, 1, 2],
-          [0, 0, 0, 0, 1, 2, 1],
-          [0, 0, 2, 1, 2, 1, 2],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 2, 1, 0, 0,
+          2, 1, 2, 1, 2,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 3, row: 5 },
           { col: 4, row: 4 },
@@ -1125,14 +1049,10 @@ function setupBackwardSlashWinTests(): void {
       const data: Data = {
         moves: [3, 4, 6, 5, 3, 4, 5, 3, 4, 5, 3],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 1, 0, 0, 0],
-          [0, 0, 0, 2, 1, 2, 0],
-          [0, 0, 0, 1, 2, 1, 0],
-          [0, 0, 0, 1, 2, 2, 1],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0,
+          0, 1, 2, 2, 1,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 6, row: 5 },
           { col: 5, row: 4 },
@@ -1175,14 +1095,10 @@ function setupBackwardSlashWinTests(): void {
       const data: Data = {
         moves: [0, 1, 0, 1, 1, 0, 0, 2, 2, 4, 3],
         boardState: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [1, 0, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [1, 2, 1, 0, 0, 0, 0],
-          [1, 2, 2, 1, 2, 0, 0],
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 1, 2,
+          2, 1, 2, 0, 0,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 3, row: 5 },
           { col: 2, row: 4 },
@@ -1223,14 +1139,10 @@ function setupBackwardSlashWinTests(): void {
     const data: Data = {
       moves: [5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 2, 3, 3, 2, 2, 2, 2, 0, 2],
       boardState: [
-        [0, 0, 1, 0, 0, 0, 0],
-        [0, 0, 1, 1, 0, 0, 0],
-        [0, 0, 2, 2, 1, 0, 0],
-        [0, 0, 1, 2, 2, 1, 0],
-        [0, 0, 2, 1, 1, 2, 0],
-        [2, 0, 1, 2, 2, 1, 0],
+        0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 0, 0, 2, 1, 1, 2, 0, 2, 0,
+        1, 2, 2, 1, 0,
       ],
-      winner: Player.ONE,
+      winner: PLAYER.ONE,
       winningCells: [
         { col: 5, row: 3 },
         { col: 4, row: 2 },
@@ -1272,14 +1184,10 @@ function setupBackwardSlashWinTests(): void {
       const data: Data = {
         moves: [3, 2, 1, 0, 3, 2, 1, 0, 3, 2, 1, 0, 2, 1, 0, 6, 1, 0, 0],
         boardState: [
-          [1, 0, 0, 0, 0, 0, 0],
-          [2, 1, 0, 0, 0, 0, 0],
-          [1, 2, 1, 0, 0, 0, 0],
-          [2, 1, 2, 1, 0, 0, 0],
-          [2, 1, 2, 1, 0, 0, 0],
-          [2, 1, 2, 1, 0, 0, 2],
+          1, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 2, 1, 2, 1, 0, 0, 0, 2, 1, 2, 1, 0, 0, 0, 2, 1,
+          2, 1, 0, 0, 2,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 3, row: 3 },
           { col: 2, row: 2 },
@@ -1322,14 +1230,10 @@ function setupBackwardSlashWinTests(): void {
       const data: Data = {
         moves: [3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 6, 5, 5, 3, 4, 3, 4, 5, 3],
         boardState: [
-          [0, 0, 0, 1, 0, 0, 0],
-          [0, 0, 0, 2, 1, 2, 0],
-          [0, 0, 0, 2, 1, 1, 0],
-          [0, 0, 0, 1, 2, 2, 1],
-          [0, 0, 0, 1, 2, 1, 2],
-          [0, 0, 0, 1, 2, 1, 2],
+          0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 2, 1, 1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 0, 0, 1, 2, 1, 2, 0, 0,
+          0, 1, 2, 1, 2,
         ],
-        winner: Player.ONE,
+        winner: PLAYER.ONE,
         winningCells: [
           { col: 6, row: 3 },
           { col: 5, row: 2 },

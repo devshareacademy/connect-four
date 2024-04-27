@@ -1,6 +1,6 @@
 {
 	"name": "@devshareacademy/connect-four",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"description": "A NPM package that contains the core game logic for the game Connect Four.",
 	"files": [
 		"dist"
@@ -39,8 +39,9 @@
 	"resolutions": {},
 	"prettier": "@devshareacademy/prettier-config",
 	"volta": {
-		"node": "16.15.0",
-		"yarn": "1.22.11"
+		"node": "20.12.2",
+		"yarn": "1.22.11",
+		"pnpm": "9.0.6"
 	},
 	"engines": {
 		"node": ">=16",
