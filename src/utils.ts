@@ -212,7 +212,7 @@ export function isHorizontalWin(
   maxCol: number,
 ): boolean {
   const row = lastPiecePlayedRow;
-  for (let col = minCol; col <= maxCol; col++) {
+  for (let col = minCol; col <= maxCol - 3; col++) {
     const cells = [
       gameState.board[getArrayIndexFrom2DCoordinate({ row: row, col: col })],
       gameState.board[getArrayIndexFrom2DCoordinate({ row: row, col: col + 1 })],
