@@ -449,6 +449,52 @@ function setupGameOverTests(): void {
     assert.equal(winningCells, data.winningCells);
   });
 
+  connectFourGameFinishedSuite(
+    'should allow player two to win if valid moves are made by both players and player two provides a winning combination 2',
+    () => {
+      /*
+        # # # # # # R
+        R # # # # # R
+        R B B # B B R
+        B B R R B B B
+        R R B B B R R
+        B R B R R R B
+      */
+      const data: Data = {
+        moves: [1, 0, 0, 0, 1, 1, 0, 2, 0, 1, 3, 6, 4, 2, 2, 2, 5, 3, 6, 6, 6, 4, 5, 5, 3, 4, 6, 4, 6, 5],
+        boardState: [
+          0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 1,
+          2, 1, 1, 1, 2,
+        ],
+        winner: PLAYER.TWO,
+        winningCells: [
+          { col: 2, row: 5 },
+          { col: 3, row: 4 },
+          { col: 4, row: 3 },
+          { col: 5, row: 2 },
+        ],
+      };
+
+      data.moves.forEach((move) => {
+        connectFour.makeMove(move);
+      });
+
+      const isGameOver = connectFour.isGameOver;
+      assert.type(isGameOver, 'boolean');
+      assert.equal(isGameOver, true);
+
+      const winner = connectFour.gameWinner;
+      assert.type(winner, 'string');
+      assert.equal(winner, data.winner);
+
+      assert.equal(data.boardState, connectFour.board);
+
+      const winningCells = connectFour.winningCells;
+      assert.type(winningCells, 'object');
+      assert.equal(winningCells, data.winningCells);
+    },
+  );
+
   connectFourGameFinishedSuite.run();
 }
 
