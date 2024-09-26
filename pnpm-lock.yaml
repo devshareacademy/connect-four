@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@devshareacademy/eslint-config':
-        specifier: 0.0.16
-        version: 0.0.16(@typescript-eslint/eslint-plugin@5.22.0(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint@8.14.0)(typescript@4.6.4))(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint-plugin-prettier@4.0.0(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint@8.14.0)(prettier@2.6.2))(eslint@8.14.0)(prettier@2.6.2)
+        specifier: 0.0.19
+        version: 0.0.19(@typescript-eslint/eslint-plugin@5.22.0(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint@8.14.0)(typescript@4.6.4))(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint-plugin-prettier@4.0.0(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint@8.14.0)(prettier@2.6.2))(eslint@8.14.0)(prettier@2.6.2)
       '@devshareacademy/prettier-config':
         specifier: 0.0.4
         version: 0.0.4
@@ -51,8 +51,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@devshareacademy/eslint-config@0.0.16':
-    resolution: {integrity: sha512-PBksu/4/kNFyqwILgSFXZ4E6g1Sfo7MiA4dnU01KN+M9wpKU1/WdGsbRBufrle4aAromlFeStAItqKEAEmr16g==}
+  '@devshareacademy/eslint-config@0.0.19':
+    resolution: {integrity: sha512-ozk4foIn+uwAc7CAO16tuuwrCFRXK2GcQqRnSWOSVfLcc4oule6qQnc3fOmzBUwToIdwm4IASOrFoq4Jt03aDw==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': '>=4.28.5'
       '@typescript-eslint/parser': '>=4.28.5'
@@ -74,9 +74,11 @@ packages:
   '@humanwhocodes/config-array@0.9.5':
     resolution: {integrity: sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/object-schema@1.2.1':
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    deprecated: Use @eslint/object-schema instead
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -400,6 +402,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@13.24.0:
     resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
@@ -427,6 +430,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -562,6 +566,7 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   run-parallel@1.2.0:
@@ -685,7 +690,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@devshareacademy/eslint-config@0.0.16(@typescript-eslint/eslint-plugin@5.22.0(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint@8.14.0)(typescript@4.6.4))(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint-plugin-prettier@4.0.0(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint@8.14.0)(prettier@2.6.2))(eslint@8.14.0)(prettier@2.6.2)':
+  '@devshareacademy/eslint-config@0.0.19(@typescript-eslint/eslint-plugin@5.22.0(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint@8.14.0)(typescript@4.6.4))(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint-plugin-prettier@4.0.0(eslint-config-prettier@8.5.0(eslint@8.14.0))(eslint@8.14.0)(prettier@2.6.2))(eslint@8.14.0)(prettier@2.6.2)':
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.22.0(@typescript-eslint/parser@5.22.0(eslint@8.14.0)(typescript@4.6.4))(eslint@8.14.0)(typescript@4.6.4)
       '@typescript-eslint/parser': 5.22.0(eslint@8.14.0)(typescript@4.6.4)

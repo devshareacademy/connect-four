@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://github.com/devshareacademy/connect-four",
 	"devDependencies": {
-		"@devshareacademy/eslint-config": "0.0.16",
+		"@devshareacademy/eslint-config": "0.0.19",
 		"@devshareacademy/prettier-config": "0.0.4",
 		"@devshareacademy/tsconfig": "0.0.3",
 		"@typescript-eslint/eslint-plugin": "5.22.0",
