@@ -1,4 +1,5 @@
 export type CellRange = 0 | 1 | 2;
+export type ValidMove = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export const PLAYER = {
   ONE: 'ONE',
@@ -17,6 +18,7 @@ export class ConnectFourGameState {
   isGameOver = false;
   gameWinner: undefined | Player;
   winningCells: Coordinate[] = [];
+  moveHistory: ValidMove[] = [];
 }
 
 export const CONNECT_FOUR_ERROR = {

@@ -1,10 +1,48 @@
-import { CONNECT_FOUR_ERROR, CellRange, ConnectFourGameState, Coordinate, PLAYER, Player } from './data';
+import { CONNECT_FOUR_ERROR, CellRange, ConnectFourGameState, Coordinate, PLAYER, ValidMove } from './data';
 
 const NUMBER_OF_ROWS = 6;
 const NUMBER_OF_COLS = 7;
 
-function getArrayIndexFrom2DCoordinate(coordinate: Coordinate): number {
+/**
+ * Takes the provided Coordinate (col and row) object and converts that into an index
+ * in the 1D Array that represents a 2D Array.
+ *
+ * Example:
+ * If we want to represent a 2D Array like:
+ * [
+ *   [0, 0, 0],
+ *   [0, 1, 0],
+ *   [0, 0, 0]
+ * ]
+ * as a 1D Array, it would be: [0,0,0,0,1,0,0,0,0]
+ *
+ * If we are given index [1][1] in the 2D array, we can convert this into the 1D array
+ * index like: [4], since we have 3 columns, we know there are 3 elements in 1 row.
+ */
+export function getArrayIndexFrom2DCoordinate(coordinate: Coordinate): number {
   return coordinate.row * NUMBER_OF_COLS + coordinate.col;
+}
+
+/**
+ * Takes the provided index of a 1D Array that represents a 2D Array and converts that
+ * index into a Coordinate in the 2D Array.
+ *
+ * Example:
+ * If we want to represent a 2D Array like:
+ * [
+ *   [0, 0, 0],
+ *   [0, 1, 0],
+ *   [0, 0, 0]
+ * ]
+ * as a 1D Array, it would be: [0,0,0,0,1,0,0,0,0]
+ *
+ * If we are given index 4 in the 1D array, we can convert this into the 2D array
+ * index like: [1][1], since we have 3 columns, we know there are 3 elements in 1 row.
+ */
+export function get2DPosition(index: number): Coordinate {
+  const row = Math.floor(index / NUMBER_OF_COLS);
+  const col = index % NUMBER_OF_COLS;
+  return { row, col };
 }
 
 /**
@@ -50,6 +88,7 @@ export function initializeConnectFourGameState(gameState: ConnectFourGameState):
   gameState.gameWinner = undefined;
   gameState.playersTurn = PLAYER.ONE;
   gameState.winningCells = [];
+  gameState.moveHistory = [];
 }
 
 /**
@@ -305,21 +344,24 @@ export function makeMove(gameState: ConnectFourGameState, col: number): Coordina
   // check if the game is finished
   checkForGameEnd(gameState, row, col);
 
-  const coordinate: Coordinate = {
-    col,
-    row,
-  };
-  if (gameState.isGameOver) return coordinate;
-
-  // update the current players turn
-  if (gameState.playersTurn === PLAYER.ONE) {
-    gameState.playersTurn = PLAYER.TWO;
-  } else {
-    gameState.playersTurn = PLAYER.ONE;
+  if (!gameState.isGameOver) {
+    // update the current players turn
+    if (gameState.playersTurn === PLAYER.ONE) {
+      gameState.playersTurn = PLAYER.TWO;
+    } else {
+      gameState.playersTurn = PLAYER.ONE;
+    }
   }
-  return coordinate;
+
+  // update the move history
+  gameState.moveHistory.push(col as ValidMove);
+
+  return { col, row };
 }
 
+/**
+ * Updates the game winner int he provided game state.
+ */
 export function updateWinnerInGameState(gameState: ConnectFourGameState, winningValue: number): void {
   if (winningValue === 1) {
     gameState.gameWinner = PLAYER.ONE;

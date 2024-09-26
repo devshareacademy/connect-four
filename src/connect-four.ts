@@ -1,4 +1,4 @@
-import { CellRange, ConnectFourGameState, Coordinate, Player } from './data';
+import { CellRange, ConnectFourGameState, Coordinate, Player, ValidMove } from './data';
 import { initializeConnectFourGameState, makeMove, resetGame } from './utils';
 
 export class ConnectFour {
@@ -27,6 +27,10 @@ export class ConnectFour {
 
   get winningCells(): Coordinate[] {
     return JSON.parse(JSON.stringify(this.#gameState.winningCells)) as Coordinate[];
+  }
+
+  get moveHistory(): ValidMove[] {
+    return JSON.parse(JSON.stringify(this.#gameState.moveHistory)) as ValidMove[];
   }
 
   public resetGame(): void {

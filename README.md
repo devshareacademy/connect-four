@@ -27,7 +27,7 @@ For more details on the library and the available methods, please see the docume
 
 ## API Documentation
 
-The game of Connect Four is represented by a 2D array that is made up of 7 columns and 6 rows. Each cell in the table will have one of the following values:
+The game of Connect Four is represented by a 1D Array that has 42 spaces. This 1D Array represents a 2D Array that is made up of 7 columns and 6 rows. Each cell in the Array will have one of the following values:
 
 * `0` - Represents an empty space
 * `1` - Represents the space is occupied by the first player
@@ -55,7 +55,7 @@ Allows the current player to drop a checker into one of the columns in the game 
 
 | Name | Type | Description |
 |---|---|---|
-| coordinate | object | The coordinate of where the checker was placed. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row and column. Example: `[{"row":0,"col":0}]`.
+| coordinate | object | The coordinate of where the checker was placed. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row and column. Example: `[{"row":0,"col":0}]`. |
 
 #### .resetGame()
 
@@ -65,11 +65,12 @@ Allows the player to reset the game, and start a brand new game. Once this metho
 
 | Property | Description | Type |
 |---|---|---|
-| board | A 2D array that represents the current board state.  | number[][] |
+| board | A 1D array that represents the current board state. | number[] |
 | playersTurn | A string that represents the current players turn. Possible values are: `ONE` and `TWO`. | string |
 | isGameOver | A boolean flag that represents if the current game instance is finished. The game is considered finished when a player has won the game by getting a Connect Four, or when the game ends in a `DRAW` if no more spaces are left on the board. | boolean |
 | gameWinner | A string that represents the player that one the game. Possible values are `ONE` and `TWO`. If the game is not over, or if the game ends in a `DRAW`, then this property will return `undefined`. | string \| undefined |
 | winningCells | An array of objects that represent the coordinates of the winning cells that make up the winning combination. Each object has two properties, `col` and `row` which are numbers representing the indexes of the cell row and column. Example: `[{"row":0,"col":0}]`. If the game is not over, or if the game ends in a `DRAW`, then this property will return an empty array. | {   col: number;   row: number; }[] |
+| moveHistory | An array of moves that have been made in the existing game so far to create the current game board state. | number[] |
 
 ## Examples
 
@@ -86,8 +87,13 @@ console.log(connectFour.playersTurn); // "ONE"
 console.log(connectFour.isGameOver); // false
 console.log(connectFour.gameWinner); // undefined
 console.log(connectFour.winningCells); // []
+console.log(connectFour.moveHistory); // [0, 0]
 console.log(connectFour.board);
 /*
+// Actual value as 1D Array
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+
+// Represented as a 2D Array
 [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
@@ -117,6 +123,7 @@ connectFour.makeMove(1);
 console.log(connectFour.playersTurn); // "TWO"
 console.log(connectFour.isGameOver); // true
 console.log(connectFour.gameWinner); // "TWO"
+console.log(connectFour.moveHistory); // [2, 1, 2, 1, 2, 1, 3, 1]
 console.log(connectFour.winningCells);
 /*
 [
@@ -128,6 +135,10 @@ console.log(connectFour.winningCells);
 */
 console.log(connectFour.board);
 /*
+// Actual value as 1D Array
+[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 1, 0, 0, 0]
+
+// Represented as a 2D Array
 [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
@@ -246,3 +257,17 @@ In the project folder, there is a variety of files and folders. At a high level,
 ├── package.json     a configuration file for npm that contains metadata about your project
 ├── tsconfig.json    a configuration file for TSC
 ├── yarn.lock        a configuration file that contains the exact tree structure of the project dependencies and their versions (helps with repeatable project builds)
+
+## Changelog
+
+### 0.2.0
+
+Added a new `moveHistory` property to the `ConnectFour` class that will keep track of the moves that are made in the game. This new property makes it possible to replay the moves that were made, and to see the moves that got the game into the current board state.
+
+### 0.1.0
+
+Refactored the internal logic to use a 1D Array for representing the game Connect Four, and created a new class to represent the game state. Updated all of the internal methods of the `ConnectFour` class to have the business logic live in smaller functions that could take the new `ConnectFourGameState` and perform the required business logic and return the mutated state. This allowed for the core functionality to be more easily extended and re-usable in other game frameworks. The main external change was the `ConnectFour.board` property, which now returns a 1D array instead of a 2D array. The rest of the public `ConnectFour` class remained the same.
+
+### 0.0.5
+
+Initial release of npm package. Contains the core functionality of the game Connect Four.
