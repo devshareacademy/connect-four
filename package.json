@@ -1,6 +1,6 @@
 {
 	"name": "@devshareacademy/connect-four",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "A NPM package that contains the core game logic for the game Connect Four.",
 	"files": [
 		"dist"
