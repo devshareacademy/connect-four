@@ -25,7 +25,7 @@
 		"@devshareacademy/eslint-config": "0.0.16",
 		"@devshareacademy/prettier-config": "0.0.4",
 		"@devshareacademy/tsconfig": "0.0.3",
-		"@typescript-eslint/eslint-plugin": "5.22.0",
+		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.22.0",
 		"eslint": "8.14.0",
 		"eslint-config-prettier": "8.5.0",
